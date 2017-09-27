@@ -1,0 +1,2164 @@
+FORMAT: 1A
+HOST: http://app.apiary.io/middlewarev3r0/
+
+# Middleware v 3.0
+
+Middleware API - Methods for Account, Pharmacies and Prescriptions
+
+<strong>3.0</strong> [2017-08-21]
+<ul>
+    <li>Modified: GET /patients/linked_patients?includeAccountUser={includeAccountUser} now returns preferred_pharmacy_key for each patient</li>
+    <li>Modified: GET /patients/{patient_key} now returns preferred_pharmacy_key</li>
+    <li>NEW: PATCH /patients/{patient_key}/set_preferred_pharmacy, sets the preferred pharmacy for a particular patient</li>
+    <li>NEW: HEAD /account/email_taken, to validate if email is taken or not</li>
+    <li>NEW: /account/interests</li>
+    <li>NEW: /messages/{message_key}/dismiss, dissmisses the message from the user dashboard</li>
+    <li>NEW: /messages/{message_key}/read, mark message from the dashboard as read</li>
+    <li>Modified: GET /pharmacies/{pharmacy_key} now returns package and features of the package</li>
+    <li>NEW: PATCH /account/optin, updates the account optins for receiving promotions and accepting to be in the Diem Premium Care program.</li>
+    <li>Modified: PATCH /account/optin, updates the account optins for receiving promotions and accepting to be in the Diem Premium Care program.</li>
+    <li>Modified: GET /account, now returns optin_reward_program </li>
+    <li>NEW: GET /medsync, returns the static HTML page for the MedSync</li>
+    <li>Modified: GET /messages, added property is_read to each message</li>
+    
+</ul>
+
+
+# Group Content
+
+## Terms of use [/terms]
+
+### /terms [GET]
+
+Get terms of use
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "text": "Lorem ipsum dolor sit amet...",
+                "updated": "2016-10-31T10:00:20Z"
+            },
+            "meta": null
+        }
+
+### /terms [PATCH]
+
+Accept terms of use
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200
+
+## Privacy policy [/privacy]
+
+### /privacy [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "text": "Lorem ipsum dolor sit amet...",
+                "updated": "2016-10-31T10:00:20Z"
+            },
+            "meta": null
+        }
+
+## FAQ [/faq]
+
+### /faq [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+            {
+                "group" : "General",
+                "questions" : [
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                },
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                },
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                }]
+            },
+            {
+                "group" : "Technical",
+                "questions" : [
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                },
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                },
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                }]
+            },
+            {
+                "group" : "Pharmacies",
+                "questions" : [
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                },
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                },
+                {
+                    "question" : "Lorem....",
+                    "answer" : "Answer..."
+                }]
+            },
+            "meta": null
+        }
+## Security questions [/security_questions]
+
+### /security_questions [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "group": "0",
+                    "questions": [
+                        {
+                            "question_key": "sdfdsf56rbgh7867",
+                            "question": "Mother<s maiden name"
+                        },
+                        {
+                            "question_key": "rt456g7i78k8kiu",
+                            "question": "First pet"
+                        }
+                    ]
+                }
+                
+            ],
+            "meta": null
+        }
+
+## Medsync [/medsync]
+
+### /medsync [GET]
+
+Get MedSync page
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "text": "Lorem ipsum dolor sit amet..."
+            },
+            "meta": null
+        }
+        
+# Group Rx Database
+
+## Get complete or filtered list of articles. [/rx_articles?search={search}]
+
++ Parameters
+    + search (string, optional) - Search can be part of a name or DIN number
+
+### /rx_articles?search={search} [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+        "response": [
+            {
+            "category": "A",
+            "items": [
+                {
+                    "article_key": "68F355C2-FB74-4354-B5CF-A362556989AE",
+                    "din": "02401118",
+                    "product_name": "Accel Alendronate",
+                    "dose" : "5MG",
+                    "format" : "TABLET"
+                },
+                {
+                    "article_key": "7B537712-A14C-4C94-A2F3-D0004276844D",
+                    "din": "02398788",
+                    "product_name": "Accel Amlodipine",
+                    "dose" : "2.5MG",
+                    "format" : "TABLET"
+                }
+                    ]
+            },
+            {
+            "category": "B",
+            "items": []
+            },
+            {
+            "category": "C",
+            "items": [
+                {
+                    "article_key": "CD053A06-E908-4F01-9120-4078B6E6B91C",
+                    "din": "80037190",
+                    "product_name": "Citracal Gummies",
+                    "dose" : "250MG+250IU",
+                    "format" : "CHEWABLE TAB"
+                }
+                    ]
+            },
+        }
+
+## Get article by key [/rx_articles/{article_key}]
+
++ Parameters
+    + article_key (required, guid)
+    
+### /rx_articles/{article_key} [GET]    
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "article_key": "68F355C2-FB74-4354-B5CF-A362556989AE",
+                "din": "02401118",
+                "product_name": "Accel Alendronate",
+                "dose" : "5MG",
+                "format" : "TABLET"
+                "description": "<h2>ACCEL ALENDRONATE, 5MG, TABLET</h2></br></br><h3>Common uses</h3></br><p></br>This medication is typically used for osteoporosis. Even though you may not feel its effects, this medication takes effect after a few months.</br></p></br></br><h3>How to use this medication</h3></br><p></br>This medication is typically used only once a day. However, your doctor or pharmacist may have suggested a different schedule that is more appropriate for you. Take it regularly and continuously to maintain its beneficial effects.</br></p></br><p></br>Because it may cause esophageal irritation, this product must be swallowed with a large glass of water. Avoid lying down for at least 30 minutes after taking it. It is not advisable to split, chew or crush this medication since it may irritate your mouth and gastrointestinal tract.</br></p></br><p></br>Important: Follow the instructions on the label. Do not use more of this product, or more often, than prescribed. This medication must be taken in the morning on an empty stomach, at least 30 minutes before eating. It must be taken with plain water only, even orange juice or coffee can decrease its absorption.</br></p></br><p></br>To ensure effectiveness, avoid taking milk, dairy products, antacids or mineral supplements (calcium, iron, magnesium or zinc) for at least 30 minutes after taking this medication.</br></p></br></br><h3>Possible side effects</h3></br><p></br>In addition to its desired action, this medication may cause some side effects, notably:</br><ul></br><li>it may cause diarrhea or constipation, depending on the person;</li></br><li>it may cause stomach ache;</li></br><li>it may cause headaches;</li></br><li>it may cause bone pain;</li></br><li>it may cause gas and bloating.</li></br></ul></br>Each person may react differently to a treatment. If you think this medication may be causing side effects (including those described here, or others), talk to your doctor or pharmacist. He or she can help you to determine whether or not the medication is the source of the problem.</br></p></br></br><h3>Storage information</h3></br><p></br>As with most medications, this product should be stored at room temperature. Store it in a secure location where it will not be exposed to excessive heat, moisture or direct sunlight. Keep it out of reach of young children. Make sure that any leftover portion is disposed of safely.</br></br><h3>General information</h3></br><p></br>It is important to tell the health professionals you consult:</br><ul></br><li> if you have a history of any other medical condition, whether you smoke and for women, if you are or want to become pregnant or breastfeeding;</li></br><li> if you have allergies to any medications or any other allergies (e.g. to food, latex, etc.);</li></br><li> all medications you are taking, prescription and non-prescription, including vitamins and natural products and supplements.</li></br></ul></br></p></br></br><h3></h3></br><p></br><div id='legalNotice'><p style='border: 1px solid #000000; padding: 5px'>This document contains useful information for those taking this medication. It is not intended, in any way, to replace the advice of a trained health professional. For more information, consult the manufacturer's literature, where you will find additional information about uncommon side effects as well as contraindications associated with this product.</p></br></div>"
+            },
+            "meta": null
+        }
+
+# Group Account
+
+## Account management [/account]
+
+### /account [POST]
+
+Register a new account
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "email": "user@example.com",
+            "first_name": "John",
+            "last_name": "Doe",
+            "password": "sdfgery6456",
+            "optin": "true",
+            "questions" : [
+                {
+                    "question_key" :"2369495f-b961-4b9d-b77f-a381f5a8a748",
+                    "answer" : "Answer question group 1"
+                }
+            ]
+        }
+
++ Response 201
+
+### /account [GET]
+
+Get the account info
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "account" : {
+                    "account_key": "CFAE05DD-76BD-42D6-BE54-9C6C441454EF",
+                    "email": "userA@gmail.com",
+                    "email_confirmed" : true,
+                    "phone_number" : null,
+                    "phone_number_confirmed" : false,
+                    "two_factor_enable": false,
+                    "lockout_enddate_utc": null,
+                    "lockout_enabled": false,
+                    "access_failed_count": 0,
+                    "preferred_pharmacy_key" : "076C9E75-E8B8-411A-8D6E-EEDA31451AB9",
+                    "preferred_banner" : "G",
+                    "optin": true,
+                    "optin_reward_program" : true,
+                    "date_updated_utc": 1490635670
+                },
+                "patient": {
+                    "patient_key": "9C6A09B7-5603-42D7-B98D-91B7CB01EEDD",
+                    "badge_color": "#1ABC9C",
+                    "nickname": "Johnny",
+                    "first_name" : "John",
+                    "last_name" : "Doe",
+                    "address" : "555 Long St.",
+                    "city" : "Montreal",
+                    "province" : "QC",
+                    "postal_code" : "H5H 5H5",
+                    "phone" : "(514) 555-5555",
+                    "birth_date" : "1992-02-02",
+                    "contract_no" : "dfdf454565",
+                    "preferred_pharmacy_activated" : true
+                    "status": "Active",
+                    "tracking_id": "13427411521608058560",
+                    "date_updated_utc": 1490635670
+                }
+            },
+            "meta": null
+        }
+
+### /account [PATCH]
+
+Update account. "security_questions" is not mandatory.
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+        "nickname": "Clau",
+        "first_name": "Claudia",
+        "last_name": "Abad",
+        "badge_color": "#978656",
+        "birth_date": "1980-02-23T14:23:12.925Z",
+        "address": "2100 Drummond",
+        "city": "Montreal",
+        "province": "QC",
+        "postal_code": "H3g 1x1",
+        "phone": "5146929988",
+        "optin": true,
+        "security_questions": [
+                {
+            "question_key" :"bb287cd0-fa4d-4ab7-86b3-606feb74772f",
+            "answer" : "1"
+                }
+            ]
+        }     
+        
++ Response 200
+
+### /account [DELETE]
+
+Deactivate an account
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 204
+
+
+## Set preferred pharmacy [/account/set_preferred_pharmacy]
+
+### /account/set_preferred_pharmacy [PATCH]
+
+Set the preferred pharmacy for the account (deprecated)
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+        
+        {
+            "pharmacy_key": "CFAE05DD-76BD-42D6-BE54-9C6C441454EF"
+        }
+
++ Response 200
+
+## Validate email [/account/email_taken?email={email}]
+
+### /account/email_taken?email={email} [HEAD]
+
+Check if an email is registered. Returns OK 200 if the email is already taken, 404 if the email is not taken.
+
++ Parameters
+    + email (required, string) - Email
+
++ Response 200
+
+## Account pharmacy management [/account/pharmacy]
+
+### /account/pharmacy [POST]
+
+Add a pharmacy to the account
+
++ Request
+    + Headers
+            
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "pharmacy_key": "CFAE05DD-76BD-42D6-BE54-9C6C441454EF"
+        }
+
++ Response 201
+
+### /account/pharmacy [DELETE]
+
+Delete a pharmacy to the account
+
++ Request
+    + Headers
+            
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "pharmacy_key": "CFAE05DD-76BD-42D6-BE54-9C6C441454EF"
+        }
+
++ Response 201
+
+## Account validation [/account/validate]
+
+### /account/validate [PATCH]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+            
++ Request (application/json)
+
+        {
+            "email": "john.doe@example.com",
+            "validation_code": "426683"
+        }
+
++ Response 200
+
+## Resend account validation email [/account/send_confirmation]
+
+### /account/send_confirmation [GET]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200
+
+## Login [/account/login]
+
+### /account/login [POST]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+            Content-Type : "application/x-www-form-urlencoded"
+
++ Request (application/x-www-form-urlencoded)
+
+        username=email@email.com&password=password&grant_type=password
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "SX3gMqCOGhjMn2ayTuMQSIAZ8G-66FAneTYoDrUyNNapZ1crUxZeGSlzd-tvvjKPiAzrDJ0v8va02cw8R5o0NO4KJcHIO7IgCxDPYRyvVkkXjAK3yd7AXRtzEr5K7BE1Nb02tRnz9CyF0xFCGZfgAUb7-IX2hbT2eUo5Miqer1zWOY8Yvh70cBJ2Fm73xwubrq_CDDTF8C9yu52LOQt_hOxGi9Bx8b88UUHK2-C1k-NwI0KM3v-iKHvuKvLEeGDSPUJZr6Zdr2shdUqiF2SD4Z1fxsvjw9LDlegycgv2T61GcPljCtUSix9cOMFEkZK3FZ1XIGynFDfr-bi7u-x4bw",
+            "token_type": "bearer",
+            "expires_in": 86399,
+            "patient_key": "A36D9556-486C-4360-BE75-A60B1874E576",
+            ".issued": "2016-10-12T20:29:04Z",
+            ".expires": "2016-10-13T20:29:04Z"
+        }
+
+
+## Get security question [/account/security_question]
+
+### /account/security_question [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "question_key": "fdret656767thy",
+                "question": "Favourite sport"
+            },
+            "meta": null
+        }
+
+## Validate security question [/account/validate_security_question]
+
+### /account/validate_security_question [POST]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "question_key": "dsfert546567657",
+            "answer": "a"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "response": "true",
+            "meta": null
+        }
+
+## Send password reset email [/account/forgot_password]
+
+### /account/forgot_password [POST]
+
+Send reset password email
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "email": "user@example.com"
+        }
+
++ Response 200
+
+## Reset password [/account/reset_password]
+
+### /account/reset_password [PATCH]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "email": "john.doe@example.com",
+            "validation_code": "426683",
+            "password": "2353453454"
+        }
+
++ Response 200
+
+## Reset security questions [/account/reset_security_questions]
+
+### /account/reset_security_questions [PATCH]
+
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        { 
+            "questions" : [
+                    {
+                        "question_key" :"2369495f-b961-4b9d-b77f-a381f5a8a748",
+                        "answer" : "Answer question group 1"
+                    }
+                ]
+        }
+
++ Response 200
+
+## Change password [/account/change_password]
+
+### /account/change_password [PATCH]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "password": "2353453454",
+            "new_password": "8653453455"
+        }
+
++ Response 200
+
+## Interests [/account/interests]
+
+### /account/interests [GET]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "interest_key": "b111cbae-dc86-4df5-8801-044486373270",
+                    "name": "Diabète",
+                    "selected": true,
+                },
+                {
+                    "interest_key": "b111cbae-dc86-4df5-8801-989898989899",
+                    "name": "Hypertension",
+                    "selected": true,
+                }   
+            ],
+            "meta": null
+        }
+
+### /account/interests [PATCH]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request 
+
+        {
+            "interests_selected" : [ "b111cbae-dc86-4df5-8801-044486373270", "b111cbae-dc86-4df5-8801-989898989899" ]
+        }
+
++ Response 200 (application/json)
+
+## Optin management email [/account/optin]
+
+### /account/optin [PATCH]
+
+Update account with the optin to receive promotions and optin to enroll in the Diem Premium Care program.
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
+
++ Request (application/json)
+
+        {
+            "optin_promo" : true,
+            "optin_reward_program" : true
+        }
+
+
++ Response 200
+
+
+# Group Pharmacies
+
+## Get pharmacies info [/pharmacies?b={b}&include_deleted={include_deleted}]
+
++ Parameters
+    + include_deleted (optional, string) - false
+    + b (optional, string) - ""
+
+### /pharmacies?include_deleted={include_deleted} [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "pharmacy_key": "b111cbae-dc86-4df5-8801-044486373270",
+                    "name": "Guardian Pharmacy",
+                    "number": "3434",
+                    "ds": "P",
+                    "banner": "G",
+                    "address": "555 Main St.",
+                    "address_unit": "",
+                    "po_box": "",
+                    "city": "Ottawa",
+                    "province": "ON",
+                    "postal_code": "T5T 5T5",
+                    "longitude": "45.3912505",
+                    "latitude": "-75.7269699",
+                    "phone": "(613) 555-5555",
+                    "status": "1",
+                    "updated": "2016-08-16 13:44:38Z",
+                    "date_updated": "2017-02-23 18:33:50Z",
+                    "sync_status" : "0",
+                    "schedule": [
+                        {
+                            "Day": "4",
+                            "Start": "08:00",
+                            "End": "17:00"
+                        },
+                        {
+                            "Day": "5",
+                            "Start": "08:00",
+                            "End": "20:30"
+                        },
+                        {
+                            "Day": "6",
+                            "Start": "08:00",
+                            "End": "19:00"
+                        },
+                        {
+                            "Day": "7",
+                            "Start": "08:00",
+                            "End": "12:00"
+                        }
+                    ]
+                },
+                {
+                    "pharmacy_key": "F05EB144-803B-4C3B-BA61-B78EDDD48EB0",
+                    "name": "Guardian Pharmacy Parkdale",
+                    "number": "3435",
+                    "ds": "F",
+                    "banner": "G",
+                    "address": "5555 Main St.",
+                    "address_unit": "",
+                    "po_box": "",
+                    "city": "Toronto",
+                    "province": "ON",
+                    "postal_code": "R5R 5R5",
+                    "longitude": "43.6405188",
+                    "latitude": "-79.4397603",
+                    "phone": "(416) 555-5555",
+                    "status": "2",
+                    "updated": "2016-08-16 13:44:38Z",
+                    "date_updated": "2017-02-23 18:33:50Z",
+                    "sync_status" : "0",
+                    "schedule": [
+                        {
+                            "Day": "4",
+                            "Start": "08:00",
+                            "End": "17:00"
+                        },
+                        {
+                            "Day": "5",
+                            "Start": "08:00",
+                            "End": "20:30"
+                        },
+                        {
+                            "Day": "6",
+                            "Start": "08:00",
+                            "End": "19:00"
+                        },
+                        {
+                            "Day": "7",
+                            "Start": "08:00",
+                            "End": "12:00"
+                        }
+                    ]
+                }
+            ],
+            "meta": null
+        }
+        
+
+## Get pharmacy info [/pharmacies/{pharmacy_key}?excludeAssets={excludeAssets}]
+
++ Parameters
+    + pharmacy_key (required, guid)
+    + excludeAssets (optional, string) - false
+
+### /pharmacies/{pharmacy_key} [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "id": "35256",
+                "pharmacy_key": "dbb1be5a-410d-4451-bcd4-167871380e63",
+                "name": "C. Boisselle et L. Bilodeau",
+                "number": "3208",
+                "package": {
+                    "name": "engage",
+                    "user_optin_required": true,
+                    "features": [
+                        {"name":"surprise_delight",
+                        "user_optin_required": true},
+                        {"name":"cashback",
+                        "user_optin_required": true},
+                        {"name":"ecoupon_reward",
+                        "user_optin_required": true},
+                        {"name":"ecoupon_cashback",
+                        "user_optin_required": true},
+                        {"name":"medsync",
+                        "user_optin_required": true},
+                        {"name":"expiration_reminder",
+                        "user_optin_required": true},
+                        {"name":"pill_reminder",
+                        "user_optin_required": true},
+                        {"name":"engage_interests",
+                        "user_optin_required": true},
+                        {"name":"tutorial",
+                        "user_optin_required": true},
+                        {"name":"rx_drugs",
+                        "user_optin_required": true},
+                        {"name":"refill_reminder",
+                        "user_optin_required": true},
+                        {"name":"auto_refill",
+                        "user_optin_required": true},
+                        {"name":"prescription_ready",
+                        "user_optin_required": false}
+                    ]
+                },
+                "features": {
+                    "ds": "P",
+                    "fill": false,
+                    "refill": false
+                },
+                "owner": "C. BOISSELLE ET L. BILODEAU, PHARMACIENNES",
+                "photo": "",
+                "banner": "P",
+                "address": "1364, rue Principale, local 4",
+                "address_unit": "",
+                "po_box": "",
+                "city": "Saint-Côme-Linière",
+                "province": "QC",
+                "postal_code": "G0M 1J0",
+                "longitude": "-70.522384",
+                "latitude": "46.058462",
+                "phone": "4186852977",
+                "rx_phone": "",
+                "toll_free_phone": "",
+                "fax": "4186853804",
+                "email": "BoisselleCBilodeauL@Pharmessor.org",
+                "website": "",
+                "eflyer_code": "",
+                "show_online_record_link": false,
+                "pharmacy_accreditation": "",
+                "has_pharmacy_accreditation": true,
+                "source_status": "A",
+                "banner_level": "Proxim",
+                "microsite": false,
+                "microsite_specified": true,
+                "show_online_record_link_specified": true,
+                "last_update_date_specified": false,
+                "updated": "2016-12-08 13:49:49Z",
+                "sync_status": "0",
+                "schedule": [
+                    {
+                        "Day": "4",
+                        "Start": "08:00",
+                        "End": "17:00"
+                    },
+                    {
+                        "Day": "5",
+                        "Start": "08:00",
+                        "End": "20:30"
+                    },
+                    {
+                        "Day": "6",
+                        "Start": "08:00",
+                        "End": "19:00"
+                    },
+                    {
+                        "Day": "7",
+                        "Start": "08:00",
+                        "End": "12:00"
+                    }
+                ],
+                "delivery_schedule": null,
+                "info": {
+                  "description": null,
+                  "schedule_note": null,
+                  "services_info": null,
+                  "services": [
+                    {
+                      "id": null,
+                      "name": "General Services",
+                      "type": "Category",
+                      "content": [
+                        {
+                          "id": null,
+                          "name": "General services",
+                          "type": "SubCategory",
+                          "content": [
+                            {
+                              "id": "0",
+                              "name": "In-store photo processing",
+                              "type": "Service",
+                              "content": null
+                            },
+                            {
+                              "id": "0",
+                              "name": "Mother To Be",
+                              "type": "Service",
+                              "content": null
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "service_filters": [
+                    {
+                      "id": "304",
+                      "name": "Medication Compounding",
+                      "enabled": "false"
+                    },
+                    {
+                      "id": "289",
+                      "name": "Immunizations & Injections",
+                      "enabled": "false"
+                    },
+                    {
+                      "id": "457",
+                      "name": "Weight Management",
+                      "enabled": "false"
+                    },
+                    {
+                      "id": "454",
+                      "name": "Mental Health",
+                      "enabled": "false"
+                    },
+                    {
+                      "id": "455",
+                      "name": "Diabetes Support",
+                      "enabled": "false"
+                    }
+                  ],
+                "features": null
+            },
+            "staff": []
+            },
+            "meta": null
+        }
+
+
+## Get pharmacy preparation time [/pharmacies/{pharmacy_key}/preparation_time?date={date}]
+
++ Parameters
+    + pharmacy_key (required, guid)
+    + date (required, string)
+
+### /pharmacies/{pharmacy_key}/preparation_time?date={date} [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": "2016-11-01T10:00:00",
+            "meta": null
+        }
+
+
+## Get pharmacy delivery schedule [/pharmacies/{pharmacy_key}/delivery_schedule?date={date}]
+
++ Parameters
+    + pharmacy_key (required, guid)
+    + date (required, string)
+
+### /pharmacies/{pharmacy_key}/delivery_schedule?date={date} [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "day": "1",
+                    "start": "10:00",
+                    "end": "13:00"
+                },
+                {
+                    "day": "1",
+                    "start": "13:30",
+                    "end": "17:00"
+                },
+                {
+                    "day": "2",
+                    "start": "10:00",
+                    "end": "17:00"
+                }
+            ],
+            "meta": null
+        }
+        
+## Get pharmacy accreditation [/pharmacies/{pharmacy_key}/pharmacy_accreditation]
+
++ Parameters
+    + pharmacy_key (required, guid)
+
+### /pharmacies/{pharmacy_key}/pharmacy_accreditation [GET]
+
+Get image of pharmacy accreditation 
+
++ Request
+    + Headers
+        
+            Accept-Language: "en"
+
++ Response 200 (image)
+
+
+# Group Patients
+
+## Patient management [/patients/{patient_key}]
+
++ Parameters
+    + patient_key (required, guid) - 9C6A09B7-5603-42D7-B98D-91B7CB01EEDD
+
+### /patients/{patient_key} [GET]
+
+Get patient info
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "patient_key": "9C6A09B7-5603-42D7-B98D-91B7CB01EEDD",
+                "badge_color": "#007AA7",
+                "nickname": "John",
+                "first_name" : "John",
+                "last_name" : "Doe",
+                "address" : "555 Long St.",
+                "city" : "Montreal",
+                "province" : "QC",
+                "postal_code" : "H5H 5H5",
+                "phone" : "(514) 555-5555",
+                "birth_date" : "1992-02-02",
+                "contract_no" : "dfdf454565",
+                "preferred_pharmacy_activated" : true,
+                "preferred_pharmacy_key": "fc7ec733-10b1-4b76-b9e9-0ff0dbcaec73",
+                "status": "Active",
+                "tracking_id": "13427411521608058560",
+                "date_updated_utc": 1490635670
+            },
+            "meta": [
+            ]
+        }
+
+### /patients/{patient_key} [PATCH]
+
+Update patient info 
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "nickname": "Ja",
+            "badge_color": "#9B26AF",
+            "first_name": "Jacob",
+            "last_name": "Smith",
+            "birth_date": "2010-02-21T22:21:24.884Z"
+        }
+
++ Response 200
+
+### /patients/{patient_key} [DELETE]
+
+Remove related patient
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 204
+
+## Manage related patients [/patients/linked_patients?includeAccountUser={includeAccountUser}]
+
+### /patients/linked_patients [POST]
+
+Add linked patient
+
++ Request
+    + Headers
+
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "nickname": "Ja",
+            "badge_color": "#9B26AF",
+            "first_name": "Jacob",
+            "last_name": "Smith",
+            "birth_date": "2010-02-21T22:21:24.884Z"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "response": {
+                "patient_key": "FEC40092-59F6-4556-92CC-2C3FC2D397AE"
+            },
+            "meta": [
+            ]
+        }
+
+### /patients/linked_patients?includeAccountUser={includeAccountUser} [GET]
+
+Get current patient linked accounts
+
++ Parameters
+
+    + includeAccountUser (optional, boolean) - false
+        
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+            
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "patient_key": "4B31E902-43A9-4245-9CD9-3BD4FB125D4F",
+                    "badge_color": "#6639B6",
+                    "nickname": "John",
+                    "first_name" : "Johnny",
+                    "last_name" : "Doe",
+                    "address" : "555 Long St.",
+                    "city" : "Montreal",
+                    "province" : "QC",
+                    "postal_code" : "H5H 5H5",
+                    "phone" : "(514) 555-5555",
+                    "birth_date" : "1992-02-02",
+                    "contract_no" : "dfdf454565",
+                    "preferred_pharmacy_activated" : true,
+                    "preferred_pharmacy_key": "fc7ec733-10b1-4b76-b9e9-0ff0dbcaec73",
+                    "status": "Active",
+                    "tracking_id": "13427411521608058560",
+                    "date_updated_utc": 1490635670
+                },
+                {
+                    "patient_key": "79A35BA6-AE67-4A99-A1E3-15B2667A153C",
+                    "badge_color": "#6639B6",
+                    "nickname": "John",
+                    "first_name" : "Mary",
+                    "last_name" : "Doe",
+                    "address" : "555 Long St.",
+                    "city" : "Montreal",
+                    "province" : "QC",
+                    "postal_code" : "H5H 5H5",
+                    "phone" : "(514) 555-5555",
+                    "birth_date" : "1992-02-02",
+                    "contract_no" : "dfdf454565",
+                    "preferred_pharmacy_activated" : false,
+                    "preferred_pharmacy_key": "fc7ec733-10b1-4b76-b9e9-0ff0dbcaec73",
+                    "status": "Active",
+                    "tracking_id": "13427411521608067890"
+                }
+            ],
+            "meta": [
+            ]
+        }
+
+# Group Patient Pharmacies
+
+## Get patient pharmacies [/patients/{patient_key}/pharmacies]
+
+### /patients/{patient_key}/pharmacies [GET]
+
++ Parameters
+    + patient_key (required, guid) - 80C3F77C-F3D0-4954-B42E-872F409A146A
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "status" : "Unlinked",
+                    "is_preferred" : false,
+                    "pharmacy" :    
+                    {
+                        "pharmacy_key": "5E516CB0-CE77-4AA3-9D0E-87D40EBA4967",
+                        "name": "Guardian Pharmacy",
+                        "number" : "5692",
+                        "ds" : "P",
+                        "banner": "G",
+                        "address": "555 Main St.",
+                        "address_unit": "",
+                        "po_box": "",
+                        "city": "Ottawa",
+                        "province": "ON",
+                        "postal_code": "T5T 5T5",
+                        "longitude": "45.3912505",
+                        "latitude": "-75.7269699",
+                        "phone": "(613) 555-5555",
+                        "updated": "",
+                        "sync_status": "",
+                        "schedule": [],
+                    }
+                },
+                {
+                    "status" : "Linked",
+                    "is_preferred" : true,
+                    "pharmacy" :
+                    {
+                        "pharmacy_key": "F8187736-1456-4FDF-B98D-21B0B424B9FB",
+                        "name": "Guardian Pharmacy Parkdale",
+                        "number" : "4322",
+                        "ds": "P",
+                        "banner": "G",
+                        "address": "5555 Main St.",
+                        "address_unit": "",
+                        "po_box": "",
+                        "city": "Toronto",
+                        "province": "ON",
+                        "postal_code": "R5R 5R5",
+                        "longitude": "43.6405188",
+                        "latitude": "-79.4397603",
+                        "phone": "(416) 555-5555",
+                        "updated": "",
+                        "sync_status": "",
+                        "schedule": [
+                            {
+                                "Day": "2",
+                                "Start": "09:00",
+                                "End": "20:00"
+                            },
+                            {
+                                "Day": "3",
+                                "Start": "09:00",
+                                "End": "20:00"
+                            },
+                            {
+                                "Day": "4",
+                                "Start": "09:00",
+                                "End": "20:00"
+                            },
+                            {
+                                "Day": "5",
+                                "Start": "09:00",
+                                "End": "20:00"
+                            },
+                            {
+                                "Day": "6",
+                                "Start": "09:00",
+                                "End": "18:00"
+                            },
+                            {
+                                "Day": "7",
+                                "Start": "10:00",
+                                "End": "13:00"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "meta": [
+            ]
+        }
+
+## Link a patient to a pharmacy [/patients/{patient_key}/link_pharmacy/{pharmacy_key}]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+
+### /patients/{patient_key}/link_pharmacy/{pharmacy_key} [POST]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200
+
+## Unlink a pharmacy from an account [/patients/{patient_key}/pharmacies/{pharmacy_key}/unlink]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/unlink [POST]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+            
++ Response 200
+
+## Activate an account related to a pharmacy [/patients/{patient_key}/activate_pharmacy/{pharmacy_key}]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+
+### /patients/{patient_key}/activate_pharmacy/{pharmacy_key} [PATCH]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+            
++ Request (application/json)
+
+        {
+            "validation_code": "426683"
+        }
+
++ Response 200
+
+## Set preferred pharmacy for a patient [/patients/{patient_key}/set_preferred_pharmacy]
+
++ Parameters
+    + patient_key (required, guid)
+
+### /patients/{patient_key}/set_preferred_pharmacy [PATCH]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+            
++ Request (application/json)
+
+        {
+            "pharmacy_key": "DA4D94FA-B59B-4122-83C1-9BF9821E1927"
+        }
+
++ Response 200
+
+## Get history actions by patient related to a pharmacy [/patients/{patient_key}/pharmacies/{pharmacy_key}/actionlog]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key/actionlog} [GET]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                "action": "fill",
+                "date": "2017-02-13T02:55:10.047",
+                "items": null
+                }
+            ],
+            "meta": null
+        }
+
+## Get pharmacy patient action log details [/patients/{patient_key}/pharmacies/{pharmacy_key}/actionlog/{actionlog_key}]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+    + actionlog_key (required, guid)
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key/actionlog/{actionlog_key} [GET]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                "action": "fill",
+                "date": "2017-02-13T02:55:10.047",
+                "items": null,
+                "actionlog_key": "9d843a4e-8fa8-477a-b7b9-6061f44f66a2",
+                "data": {
+                    "address": "2000 Drummond",
+                    "city": "Montréal",
+                    "province": "QC",
+                    "postal_code": "H1H 1H1",
+                    "phone": "514-444-3333",
+                    "birth_date": "1980-10-10T00:00:00",
+                    "pickup": "2016-10-19T15:35:10",
+                    "comment": "Commentaire",
+                    "image" : "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
+                    }
+                }
+            ],
+            "meta": null
+        }
+
+## Get pharmacy patient action log image [/patients/{patient_key}/pharmacies/{pharmacy_key}/actionlog/{actionlog_key}/image]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+    + actionlog_key (required, guid)
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key/actionlog/{actionlog_key} [GET]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (image/jpeg)
+
+        
+
+
+# Group Prescriptions
+
+## Prescription management [/patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions]
+
++ Parameters
+    + patient_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+    + pharmacy_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions [GET]
+
+Get patient's prescriptions
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+            {
+                "prescription_key": "4d15c075-1587-4062-9228-5d48d1cafdf4",
+                "din": null,
+                "description": null,
+                "product_name": "bbbbbb",
+                "display_name": "bbbbbb",
+                "dosage": null,
+                "last_service_date": "0001-01-01T00:00:00",
+                "physician": null,
+                "renewals": 0,
+                "left_renewals": "0",
+                "prescribed_quantity": 0,
+                "state": "0",
+                "date_updated_utc": 1495218307,
+                "schedule": {
+                    "schedule_key": "06c39f1e-0b42-4061-a275-823ded9c22df",
+                    "action": "Reminder",
+                    "timezone": 4,
+                    "push": false,
+                    "email": true,
+                    "frequency": "weekday",
+                    "frequency_config": 5,
+                    "reccurrences": 3,
+                    "hour": 9,
+                    "status": "Active",
+                    "items": [
+                    {
+                    "scheduleItem_key": "32e6b53f-6ddf-49e9-9ac9-d10673bb1260",
+                    "date": "2017-07-08T08:00:00-04:00",
+                    "status": "Pending"
+                  },
+                  {
+                    "scheduleItem_key": "32e6b53f-6ddf-49e9-9ac9-d10673bb1260",
+                    "date": "2017-08-08T08:00:00-04:00",
+                    "status": "Pending"
+                  },
+                  {
+                    "scheduleItem_key": "32e6b53f-6ddf-49e9-9ac9-d10673bb1260",
+                    "date": "2017-09-08T08:00:00-04:00",
+                    "status": "Pending"
+                  }
+                ]
+              }
+            },
+            {
+              "prescription_key": "ba6b6a46-ba5c-4daf-a538-cca955d6b938",
+              "din": null,
+              "description": null,
+              "product_name": "aaaaaaa",
+              "display_name": "aaaaaaa",
+              "dosage": null,
+              "last_service_date": "0001-01-01T00:00:00",
+              "physician": null,
+              "renewals": 0,
+              "left_renewals": "0",
+              "prescribed_quantity": 0,
+              "state": "0",
+              "date_updated_utc": 1495218307,
+              "schedule": {
+                "schedule_key": "aa77a31f-e96d-4963-8acc-2501151af6eb",
+                "action": "Reminder",
+                "language": "en",
+                "timezone": 4,
+                "push": true,
+                "email": false,
+                "frequency": "monthday",
+                "frequency_config": 14,
+                "reccurrences": 5,
+                "hour": 9,
+                "status": "Active",
+                "items": [
+                  {
+                    "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
+                    "date": "2017-05-27T17:00:00+04:00",
+                    "status": "Pending"
+                  },
+                  {
+                    "scheduleItem_key": "cfdf33a6-5b03-441e-ad93-f6ee66636419",
+                    "date": "2017-06-03T17:00:00+04:00",
+                    "status": "Pending"
+                  },
+                  {
+                    "scheduleItem_key": "10dc1a38-1918-4636-8c3a-b84edf9d8530",
+                    "date": "2017-06-10T17:00:00+04:00",
+                    "status": "Pending"
+                  },
+                  {
+                    "scheduleItem_key": "8b050f25-70ef-4302-83d5-eaa5180f937f",
+                    "date": "2017-06-17T17:00:00+04:00",
+                    "status": "Pending"
+                  },
+                  {
+                    "scheduleItem_key": "ea95fa7c-b4ad-4982-bb92-56ac5251d2e2",
+                    "date": "2017-06-24T17:00:00+04:00",
+                    "status": "Pending"
+                  }
+                    ]
+            }
+        }
+            ],
+            "meta": null
+        }
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions [POST]
+
+Add a new prescription (Only not dispensing)
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+        
+        {
+            "product_name": "string",
+            "description": "string"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "response": {
+                "prescription_key": "2e02698b-6675-43e8-861a-c986d5b77d4b",
+                "din": null,
+                "description": "Take 1 each morning",
+                "product_name": "test 13",
+                "display_name": "test 13",
+                "dosage": null,
+                "last_service_date": "0001-01-01T00:00:00",
+                "physician": null,
+                "renewals": 0,
+                "left_renewals": "0",
+                "prescribed_quantity": 0,
+                "state": "0"
+            },
+            "meta": null
+        }
+
+## Prescriptions modifications [/patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions/{prescription_key}]
+
++ Parameters
+    + patient_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+    + pharmacy_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+    + prescription_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions/{prescription_key} [PATCH]
+
+Update an existing prescription
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "product_name": "string",
+            "description": "string"
+        }
+
++ Response 200 (application/json)
+
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions/{prescription_key} [DELETE]
+
+Delete a prescription
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions/{prescription_key} [GET]
+
+Get a prescription
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": 
+            {
+                    "prescrption_key": "df456fdg56",
+                    "din": "Methadone",
+                    "description" : null,
+                    "product_name": "Methadone",
+                    "display_name" : "df456fdg56 - Methadone",
+                    "dosage": "2 times per day",
+                    "last_service_date": "2016-09-22T16:23:00",
+                    "physician": "Michael Doctor",
+                    "renewals": 10,
+                    "prescribed_quantity": 2,
+                    "left_renewals": "5",
+                    "state": "",
+                    "schedule": {
+                        "schedule_key": "df456fdg56iioio" 
+                        "action": "reminder",
+                        "language": "en",
+                        "frequency": "weekday",
+                        "frequency_config": 6,
+                        "hour": "08:00",
+                        "email": true,
+                        "push": false,
+                        "time_zone": -4,
+                        "recurrences" : 2,
+                        "items":[
+                        {
+                            "id":1
+                            "date":"2016-09-22T16:23:00+00:04"
+                            "status": "sent"
+                        },
+                        {
+                            "id":2
+                            "date":"2016-09-22T16:23:00+00:04"
+                            "status": "confirmed"
+                        }]
+                    }
+            },
+            "meta": [
+            ]
+        }
+
+## Fill a new prescription [/patients/{patient_key}/pharmacies/{pharmacy_key}/fill_prescription]
+
++ Parameters
+    + patient_key (required, guid)
+    + pharmacy_key (required, guid)
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key/fill_prescription [POST]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "address" : "555 Long St.",
+            "city" : "Montreal",
+            "province" : "QC",
+            "postal_code" : "H5H 5H5",
+            "phone" : "(514) 555-5555",
+            "birth_date" : "1992-02-02",
+            "pickup": "2016-10-01T14:00:00",
+            "comment": "",
+            "image": "data:image/gif;base64,R0lGODlhPQBEAPeoAJosM//AwO/AwHVYZ/z595kzAP/s7P+goOXMv8+fhw/v739/f+8PD98fH/8mJl+fn/9ZWb8/PzWlwv///6wWGbImAPgTEMImIN9gUFCEm/gDALULDN8PAD6atYdCTX9gUNKlj8wZAKUsAOzZz+UMAOsJAP/Z2ccMDA8PD/95eX5NWvsJCOVNQPtfX/8zM8+QePLl38MGBr8JCP+zs9myn/8GBqwpAP/GxgwJCPny78lzYLgjAJ8vAP9fX/+MjMUcAN8zM/9wcM8ZGcATEL+QePdZWf/29uc/P9cmJu9MTDImIN+/r7+/vz8/P8VNQGNugV8AAF9fX8swMNgTAFlDOICAgPNSUnNWSMQ5MBAQEJE3QPIGAM9AQMqGcG9vb6MhJsEdGM8vLx8fH98AANIWAMuQeL8fABkTEPPQ0OM5OSYdGFl5jo+Pj/+pqcsTE78wMFNGQLYmID4dGPvd3UBAQJmTkP+8vH9QUK+vr8ZWSHpzcJMmILdwcLOGcHRQUHxwcK9PT9DQ0O/v70w5MLypoG8wKOuwsP/g4P/Q0IcwKEswKMl8aJ9fX2xjdOtGRs/Pz+Dg4GImIP8gIH0sKEAwKKmTiKZ8aB/f39Wsl+LFt8dgUE9PT5x5aHBwcP+AgP+WltdgYMyZfyywz78AAAAAAAD///8AAP9mZv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAKgALAAAAAA9AEQAAAj/AFEJHEiwoMGDCBMqXMiwocAbBww4nEhxoYkUpzJGrMixogkfGUNqlNixJEIDB0SqHGmyJSojM1bKZOmyop0gM3Oe2liTISKMOoPy7GnwY9CjIYcSRYm0aVKSLmE6nfq05QycVLPuhDrxBlCtYJUqNAq2bNWEBj6ZXRuyxZyDRtqwnXvkhACDV+euTeJm1Ki7A73qNWtFiF+/gA95Gly2CJLDhwEHMOUAAuOpLYDEgBxZ4GRTlC1fDnpkM+fOqD6DDj1aZpITp0dtGCDhr+fVuCu3zlg49ijaokTZTo27uG7Gjn2P+hI8+PDPERoUB318bWbfAJ5sUNFcuGRTYUqV/3ogfXp1rWlMc6awJjiAAd2fm4ogXjz56aypOoIde4OE5u/F9x199dlXnnGiHZWEYbGpsAEA3QXYnHwEFliKAgswgJ8LPeiUXGwedCAKABACCN+EA1pYIIYaFlcDhytd51sGAJbo3onOpajiihlO92KHGaUXGwWjUBChjSPiWJuOO/LYIm4v1tXfE6J4gCSJEZ7YgRYUNrkji9P55sF/ogxw5ZkSqIDaZBV6aSGYq/lGZplndkckZ98xoICbTcIJGQAZcNmdmUc210hs35nCyJ58fgmIKX5RQGOZowxaZwYA+JaoKQwswGijBV4C6SiTUmpphMspJx9unX4KaimjDv9aaXOEBteBqmuuxgEHoLX6Kqx+yXqqBANsgCtit4FWQAEkrNbpq7HSOmtwag5w57GrmlJBASEU18ADjUYb3ADTinIttsgSB1oJFfA63bduimuqKB1keqwUhoCSK374wbujvOSu4QG6UvxBRydcpKsav++Ca6G8A6Pr1x2kVMyHwsVxUALDq/krnrhPSOzXG1lUTIoffqGR7Goi2MAxbv6O2kEG56I7CSlRsEFKFVyovDJoIRTg7sugNRDGqCJzJgcKE0ywc0ELm6KBCCJo8DIPFeCWNGcyqNFE06ToAfV0HBRgxsvLThHn1oddQMrXj5DyAQgjEHSAJMWZwS3HPxT/QMbabI/iBCliMLEJKX2EEkomBAUCxRi42VDADxyTYDVogV+wSChqmKxEKCDAYFDFj4OmwbY7bDGdBhtrnTQYOigeChUmc1K3QTnAUfEgGFgAWt88hKA6aCRIXhxnQ1yg3BCayK44EWdkUQcBByEQChFXfCB776aQsG0BIlQgQgE8qO26X1h8cEUep8ngRBnOy74E9QgRgEAC8SvOfQkh7FDBDmS43PmGoIiKUUEGkMEC/PJHgxw0xH74yx/3XnaYRJgMB8obxQW6kL9QYEJ0FIFgByfIL7/IQAlvQwEpnAC7DtLNJCKUoO/w45c44GwCXiAFB/OXAATQryUxdN4LfFiwgjCNYg+kYMIEFkCKDs6PKAIJouyGWMS1FSKJOMRB/BoIxYJIUXFUxNwoIkEKPAgCBZSQHQ1A2EWDfDEUVLyADj5AChSIQW6gu10bE/JG2VnCZGfo4R4d0sdQoBAHhPjhIB94v/wRoRKQWGRHgrhGSQJxCS+0pCZbEhAAOw==",
+        }
+
++ Response 200 (application/json)
+
+## Refill a prescription [/patients/pharmacies/{pharmacy_key}/refill_prescription]
+
++ Parameters
+    + pharmacy_key (required, guid)
+
+### /patients/pharmacies/{pharmacy_key}/refill_prescription [POST]
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+
++ Request (application/json)
+
+        {
+            "mode": "pickup",
+            "address" : "555 Long St.",
+            "city" : "Montreal",
+            "province" : "QC",
+            "postal_code" : "H5H 5H5",
+            "phone" : "(514) 555-5555",
+            "pickup": "2016-10-01T14:00:00",
+            "delivery_startdate" : "2016-12-05T13:00:00",
+            "delivery_enddate" : "2016-12-05T17:00:00"
+            "comment": "",
+            "patient_key": "2DB01BEB-6581-4E3B-8FE6-839AA238A841",
+            "prescriptions": [
+                    "drug1",
+                    "3434df4545"
+            ]
+        }
+
++ Response 200 (application/json)
+
+## Prescription Schedule [/patients/{patient_key}/pharmacies/{pharmacy_key}/schedule/{schedule_key}]
+
++ Parameters
+    + patient_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+    + pharmacy_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+    + schedule_key (optional, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/schedule [POST]
+
+Add a new prescription schedule. 
+"frecuency" could be "weekday" or "monthday" or "daysinterval".
+"method" could be null, "unknown", "pickup" or "delivery".
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+        
+        {
+            "prescriptions_identifiers": [
+                "8B0A80D6-79E0-4F7A-BC77-DFEF8235B15E", "C6B6AA9D-AD1A-4A77-8F69-AF71179D3BAE"
+            ],
+            "action": "Reminder",
+            "method": "unknown",
+            "timezone": 4,
+            "push": true,
+            "email": true,
+            "frequency": "monthday",
+            "frequency_config": 14,
+            "reccurrences": 3,
+            "hour": 10
+        }
+
++ Response 201 (application/json)
+
+        {
+            "response": {
+                "schedule_key": "9E0784CC-4D0B-49C2-B0CD-F40B60F34E63"
+                "action": "Reminder",
+                "method": "unknown",
+                "frequency": "monthday",
+                "frequency_config": 14,
+                "hour":"10:00"
+                "email": true,
+                "push": false,
+                "timezone": 4,
+                "recurrences": 3
+                "items":[
+                {
+                   "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
+                    "date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                },
+                {
+                    "scheduleItem_key": "5E50349E-B0CC-4A83-BCF5-70DE4DE15CD7"
+                    "date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                },
+                {
+                    "scheduleItem_key": "1618188D-9266-42C1-9C0A-DB59DB3860DC"
+                    "date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                }]
+            },
+            "meta": null
+        }
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/schedule/{schedule_key} [PATCH]
+
+Update an existing schedule action
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "prescriptions_identifiers": [
+                "8B0A80D6-79E0-4F7A-BC77-DFEF8235B15E", "C6B6AA9D-AD1A-4A77-8F69-AF71179D3BAE"
+            ],
+            "action": "Reminder",
+            "method": "unknown",
+            "timezone": 4,
+            "push": true,
+            "email": true,
+            "frequency": "monthday",
+            "frequency_config": 14,
+            "reccurrences": 3,
+            "hour": 10
+        }
+
++ Response 200 (application/json)
+
+
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/schedule/{schedule_key} [DELETE]
+
+Delete a prescription schedule
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+
+# Group Message
+
+## Message management [/messages]
+
+### /messages [GET]
+
+Returns all the account messages on the home screen.
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+
+
++ Response 200 (application/json)
+
+        {
+            "response": [
+                {
+                    "message_key" : "D6A8CE8A-6BBF-411D-A487-45F01F60D8D9",
+                    "is_read" : true,
+                    "content" : {
+                        "text" : "Your prescription is ready",
+                        "image" : null
+                    },
+                    "actions" : [
+                        {
+                            "type" : "dismiss",
+                            "title" : "I've got it!"
+                        }
+                    ],
+                    "linked_object" : {
+                        "type" : "patient",
+                        "data" : {
+                            "patient_key" : "D5937465-B1AB-41F3-885E-04C22B191278",
+                            "nickname" : "Nickname",
+                            "first_name" : "Robert",
+                            "last_name"  : "Lang",
+                            "badge" : "#1ABC9C"
+                        }
+                    },
+                    "category" : "Account",
+                    "priority" : "High"
+                },
+                {
+                    "message_key" : "3A832CEC-0E4C-42FC-BB10-228CA78626F4",
+                    "is_read" : false,
+                    "content" : {
+                        "text" : "It is time to update your application!",
+                        "image" : null
+                    },
+                    "actions" : [
+                        {
+                            "title": "App Store",
+                            "type": "url",
+                            "url": "https://itunes.apple.com/ca/app/diem/id1188053578?ls=1&mt=88"
+                        }
+                    ],
+                    "linked_object" : null,
+                    "category" : "System",
+                    "priority" : "High"
+                }
+            ],
+            "meta": null
+        }
+     
+### /messages [POST]
+
+Creates a new message from a dispensing system.
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "system_token" : "fh2-asj28-sj28b-aaa-22sj",
+            "username": "PI009876-0000000002",
+            "message_en" : "Your prescription is ready",
+            "message_fr" : "Votre prescription est prête",
+            "type" : "Prescription",
+            "channel" : ["Push","Email"]
+        }
+
++ Response 200 (application/json)
+
+## Dismiss message [/messages/{message_key}/dismiss]
+
+### /messages/dismiss [PATCH]
+
+Dismisses the message from the home screen
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+
++ Response 200 (application/json)
+
+## Read message [/messages/{message_key}/read]
+
+### /messages/read [PATCH]
+
+Mark as read the message from the home screen
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+
++ Response 200 (application/json)
+
+# Group Activation
+
+## Activation Patient  [/patients/activate_pharmacy]
+
+### /patients/activate_pharmacy [GET]
+
+Validate a patient activation
+
++ Response 200 (application/json)
+
+        {
+            "response" : {
+                "account_exists": true,
+                "language": "en",
+                "first_name": "Claudia",
+                "lastname": "Smith",
+                "email": "cc.email@gmail.com",
+                "token": "e09nfkfhRoDNZD8MwsjPqs0H64z"
+            },
+            "meta" : null
+        }
+     
+### /patients/activate_pharmacy [POST]
+
+After authentication, allows the activation's patient in pharmacy
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+
++ Request (application/json)
+
+        {
+           "token": "e09nfkfhRoDNZD8MwsjPqs0H64z"
+        }
+
++ Response 200 (application/json)
+
+#Group Device
+
+## Device management [/device]
+
+### /device [POST]
+
+Associate a Android or iOS device with the account. Requires a APNS push token or Google push token.
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+           "token": "e09nfkfhRoDNZD8MwsjPqs0H64z",
+           "device_type" : "iOS"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "response" : {
+                "device_key" : "D9A0C8E7-B0A0-42C4-BFB9-B275F5EDD253"
+            },
+            "meta" : null
+        }
+            
+            
+### /device/{device_key} [DELETE]
+
+Removes the associate between the push token and the account
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+### /device/{device_key} [PATCH]
+
+Updates the token for a device key.
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+           "device_key": "D9A0C8E7-B0A0-42C4-BFB9-B275F5EDD253"
+        }
+
++ Response 200 (application/json)
