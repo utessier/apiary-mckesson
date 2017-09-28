@@ -21,6 +21,7 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>NEW: GET /medsync, returns the static HTML page for the MedSync</li>
     <li>Modified: GET /messages, added property is_read to each message</li>
     <li>NEW: GET /patients/{{key}}/pharmacies/{{key}}/prescriptions/{{identifier}}/history, get history of prescriptions only for linked pharmacies</li>
+    <li>Modified: GET /patients/{patient_key}/pharmacies, now returns package for each pharmacy</li>
 </ul>
 
 
@@ -1277,6 +1278,24 @@ Get current patient linked accounts
                         "pharmacy_key": "5E516CB0-CE77-4AA3-9D0E-87D40EBA4967",
                         "name": "Guardian Pharmacy",
                         "number" : "5692",
+                        "package": {
+                            "name": "engage",
+                            "user_optin_required": true,
+                            "features": [
+                                {
+                                    "name": "surprise_delight",
+                                    "user_optin_required": true
+                                },
+                                {
+                                    "name": "cashback",
+                                    "user_optin_required": true
+                                },
+                                {
+                                    "name": "ecoupon_reward",
+                                    "user_optin_required": true
+                                }
+                            ]
+                        },
                         "ds" : "P",
                         "banner": "G",
                         "address": "555 Main St.",
@@ -1290,7 +1309,7 @@ Get current patient linked accounts
                         "phone": "(613) 555-5555",
                         "updated": "",
                         "sync_status": "",
-                        "schedule": [],
+                        "schedule": []
                     }
                 },
                 {
@@ -1301,6 +1320,24 @@ Get current patient linked accounts
                         "pharmacy_key": "F8187736-1456-4FDF-B98D-21B0B424B9FB",
                         "name": "Guardian Pharmacy Parkdale",
                         "number" : "4322",
+                        "package": {
+                            "name": "engage",
+                            "user_optin_required": true,
+                            "features": [
+                                {
+                                    "name": "surprise_delight",
+                                    "user_optin_required": true
+                                },
+                                {
+                                    "name": "cashback",
+                                    "user_optin_required": true
+                                },
+                                {
+                                    "name": "ecoupon_reward",
+                                    "user_optin_required": true
+                                }
+                            ]
+                        },
                         "ds": "P",
                         "banner": "G",
                         "address": "5555 Main St.",
