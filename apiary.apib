@@ -22,6 +22,7 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>Modified: GET /messages, added property is_read to each message</li>
     <li>NEW: GET /patients/{{key}}/pharmacies/{{key}}/prescriptions/{{identifier}}/history, get history of prescriptions only for linked pharmacies</li>
     <li>Modified: GET /patients/{patient_key}/pharmacies, now returns package for each pharmacy</li>
+    <li>Modified: GET /terms_loyalty, get terms of loyalty program</li>
 </ul>
 
 
@@ -191,6 +192,28 @@ Get MedSync page
             },
             "meta": null
         }
+
+## Terms of loyalty program [/terms_loyalty]
+
+### /terms_loyalty [GET]
+
+Get terms of loyalty program
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "text": "Lorem ipsum dolor sit amet...",
+                "updated": "2017-09-10T10:00:20Z"
+            },
+            "meta": null
+        }
+
         
 # Group Rx Database
 
