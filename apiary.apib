@@ -22,7 +22,8 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>Modified: GET /messages, added property is_read to each message</li>
     <li>NEW: GET /patients/{{key}}/pharmacies/{{key}}/prescriptions/{{identifier}}/history, get history of prescriptions only for linked pharmacies</li>
     <li>Modified: GET /patients/{patient_key}/pharmacies, now returns package for each pharmacy</li>
-    <li>Modified: GET /terms_loyalty, get terms of loyalty program</li>
+    <li>NEW: GET /terms_loyalty, get terms of loyalty program</li>
+    <li>NEW: POST patients/{patient_key}/pharmacies/{pharmacy_key}/medsync, send request of MedSync to pharmacy</li>
 </ul>
 
 
@@ -172,27 +173,7 @@ Accept terms of use
             ],
             "meta": null
         }
-
-## Medsync [/medsync]
-
-### /medsync [GET]
-
-Get MedSync page
-
-+ Request
-    + Headers
-    
-            Accept-Language: "en"
-
-+ Response 200 (application/json)
-
-        {
-            "response": {
-                "text": "Lorem ipsum dolor sit amet..."
-            },
-            "meta": null
-        }
-
+        
 ## Terms of loyalty program [/terms_loyalty]
 
 ### /terms_loyalty [GET]
@@ -214,6 +195,47 @@ Get terms of loyalty program
             "meta": null
         }
 
+
+# Group MedSync
+
+## Get HTML page MedSync. [/medsync]
+
+### /medsync [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200 (application/json)
+
+        {
+            "response": {
+                "text": "Lorem ipsum dolor sit amet..."
+            },
+            "meta": null
+        }
+        
+## Send a request of MedSync to the pharmacy. [/patient/{patient_key}/pharmacies/{pharmacy_key}/medsync]
+
+### /patient/{patient_key}/pharmacies/{pharmacy_key}/medsync [POST]
+
++ Parameters
+    + patient_key (guid, required) - Patient Key
+    + pharmacy_key (guid, required) - Pharmacy Key
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
+    + Body
+            
+            {
+                "phone": "514-663-9874"
+            }
+
++ Response 200 
         
 # Group Rx Database
 
