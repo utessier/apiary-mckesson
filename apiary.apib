@@ -24,6 +24,7 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>Modified: GET /patients/{patient_key}/pharmacies, now returns package for each pharmacy</li>
     <li>NEW: GET /terms_loyalty, get terms of loyalty program</li>
     <li>NEW: POST patients/{patient_key}/pharmacies/{pharmacy_key}/medsync, send request of MedSync to pharmacy</li>
+    <li>Modified: GET patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions, now returns leaftlets when possible</li>
 </ul>
 
 
@@ -1662,13 +1663,14 @@ Get patient's prescriptions
                   }
                 ]
               }
+                "leaflet": null
             },
             {
               "prescription_key": "ba6b6a46-ba5c-4daf-a538-cca955d6b938",
-              "din": null,
+              "din": "2147629",
               "description": null,
-              "product_name": "aaaaaaa",
-              "display_name": "aaaaaaa",
+              "product_name": "Apo Acebutolol",
+              "display_name": "Apo Acebutolol",
               "dosage": null,
               "last_service_date": "0001-01-01T00:00:00",
               "physician": null,
@@ -1716,6 +1718,15 @@ Get patient's prescriptions
                     "status": "Pending"
                   }
                     ]
+            },
+            "leaflet": {
+                "article_key": "f3ea8b0a-67f4-4c05-afe4-d4a14e5d3c89",
+                "din": "2147629",
+                "product_name": "Apo Acebutolol",
+                "dose": "400MG",
+                "format": "TABLET",
+                "image_url": null,
+                "description": "<h2>APO ACEBUTOLOL, 400MG, TABLET</h2></br></br><h3>Common uses</h3></br><p></br>This medication is typically used for the prevention of angina (chest pain due to a heart condition) or to lower blood pressure. It may also have other uses. Even though you may not feel its effects, this medication takes effect within a few hours.</br></p></br></br><h3>How to use this medication</h3></br><p></br>This medication is typically used twice a day. However, your doctor or pharmacist may have suggested a different schedule that is more appropriate for you. Take it regularly and continuously to maintain its beneficial effects.</br></p></br><p></br>Important: Follow the instructions on the label. Do not use more of this product, or more often, than prescribed. It is not advisable to stop using this product suddenly, particularly if you have been on it for several weeks. If you are considering stopping the medication, talk to your doctor or pharmacist first.</br></p></br><p></br>If you forget a dose, take it as soon as you remember -- unless it is almost time for your next dose. In that case, skip the missed dose. Do not double the next dose to catch up. This medication may be taken with or without food.</br></p></br></br><h3>Possible side effects</h3></br><p></br>In addition to its desired action, this medication may cause some side effects, notably:</br><ul></br><li>it may cause constipation -- to prevent this, drink plenty of water or juice, and eat more dietary fibre;</li></br><li>it may cause dizziness -- use caution when getting up from a lying or sitting position;</li></br><li>it may cause unusual tiredness;</li></br><li>it may decrease your heart rate;</li></br><li>it may cause sleep disturbances or insomnia;</li></br><li>it may cause unusual dreams.</li></br></ul></br>Each person may react differently to a treatment. If you think this medication may be causing side effects (including those described here, or others), talk to your doctor or pharmacist. He or she can help you to determine whether or not the medication is the source of the problem.</br></p></br></br><h3>Storage information</h3></br><p></br>As with most medications, this product should be stored at room temperature. Store it in a secure location where it will not be exposed to excessive heat, moisture or direct sunlight. Keep it out of reach of young children. Make sure that any leftover portion is disposed of safely.</br></p></br></br><h3>Additional information</h3></br><p></br>This medication may interact with other medications or supplements, sometimes significantly. Many interactions, however, may be dealt with by a dosage adjustment or a change in medication schedule. Check with your pharmacist before using this medication in combination with any other medications (including non-prescription products), vitamins or natural products.</br></p></br><p></br>Wear a Medic-Alert<sup><font size=\"-2\"> TM</font></sup> bracelet stating that you are taking this product.</br></p></br></br><h3>General information</h3></br><p></br>It is important to tell the health professionals you consult:</br><ul></br><li> if you have a history of any other medical condition, whether you smoke and for women, if you are or want to become pregnant or breastfeeding;</li></br><li> if you have allergies to any medications or any other allergies (e.g. to food, latex, etc.);</li></br><li> all medications you are taking, prescription and non-prescription, including vitamins and natural products and supplements.</li></br></ul></br></p></br></br><h3></h3></br><p></br><div id='legalNotice'><p style='border: 1px solid #000000; padding: 5px'>This document contains useful information for those taking this medication. It is not intended, in any way, to replace the advice of a trained health professional. For more information, consult the manufacturer's literature, where you will find additional information about uncommon side effects as well as contraindications associated with this product.</p></br></div>"
             }
         }
             ],
