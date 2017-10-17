@@ -704,6 +704,8 @@ Send reset password email
 
 ### /account/interests [GET]
 
+Get Interests 
+
 + Request
     + Headers
     
@@ -728,7 +730,9 @@ Send reset password email
             "meta": null
         }
 
-### /account/interests [PATCH]
+### /account/interests [POST][PATCH] 
+
+Set interests of user
 
 + Request
     + Headers
@@ -739,7 +743,7 @@ Send reset password email
 + Request 
 
         {
-            "interests_selected" : [ "b111cbae-dc86-4df5-8801-044486373270", "b111cbae-dc86-4df5-8801-989898989899" ]
+            "user_interest_preferences" : [ "b111cbae-dc86-4df5-8801-044486373270", "b111cbae-dc86-4df5-8801-989898989899" ]
         }
 
 + Response 200 (application/json)
@@ -770,13 +774,14 @@ Update account with the optin to receive promotions and optin to enroll in the D
 
 # Group Pharmacies
 
-## Get pharmacies info [/pharmacies?b={b}&include_deleted={include_deleted}]
+## Get pharmacies info [/pharmacies?b={b}&include_deleted={include_deleted}&date_updated={date_updated}]
 
 + Parameters
     + include_deleted (optional, string) - false
     + b (optional, string) - ""
+    + date_updated (optional, datetime) - null
 
-### /pharmacies?include_deleted={include_deleted} [GET]
+### /pharmacies?include_deleted={include_deleted}&date_updated={date_updated} [GET]
 
 + Request
     + Headers
