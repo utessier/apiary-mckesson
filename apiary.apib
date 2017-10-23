@@ -2135,6 +2135,39 @@ Creates a new message from a dispensing system.
 
 + Response 200 (application/json)
 
+## Prescription is ready message [/messages/prescription_ready]
+
+### /messages/prescription_ready [POST]
+
+Creates a new message from a dispensing system.
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "system_token" : "fh2-asj28-sj28b-aaa-22sj",
+            "prescriptions" : [
+                { 
+                    "username" : "PM7008598-0000000094",
+                    "prescription_number" : "500214"
+                },
+                { 
+                    "username" : "PM7008598-0000000094",
+                    "prescription_number" : "500215"
+                },
+                {
+                    "username" : "PM7008598-0000000124",
+                    "prescription_number" : "500216"
+                }
+            ]
+        }
+
++ Response 200 (application/json)
+
 ## Dismiss message [/messages/{message_key}/dismiss]
 
 ### /messages/dismiss [PATCH]
