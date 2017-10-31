@@ -1934,18 +1934,15 @@ Get a prescription
 
 + Response 200 (application/json)
 
-## Prescription Schedule [/patients/{patient_key}/pharmacies/{pharmacy_key}/schedule/{schedule_key}]
+## Prescription Schedule [/patients/{patient_key}/pharmacies/{pharmacy_key}/schedule]
 
 + Parameters
     + patient_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
     + pharmacy_key (required, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
-    + schedule_key (optional, guid) - F8187736-1456-4FDF-B98D-21B0B424B9FB
 
 ### /patients/{patient_key}/pharmacies/{pharmacy_key}/schedule [POST]
 
 Add a new prescription schedule. 
-"frecuency" could be "weekday" or "monthday" or "daysinterval".
-"method" could be null, "unknown", "pickup" or "delivery".
 
 + Request
     + Headers
@@ -1959,15 +1956,17 @@ Add a new prescription schedule.
             "prescriptions_identifiers": [
                 "8B0A80D6-79E0-4F7A-BC77-DFEF8235B15E", "C6B6AA9D-AD1A-4A77-8F69-AF71179D3BAE"
             ],
-            "action": "Reminder",
-            "method": "unknown",
-            "timezone": 4,
-            "push": true,
-            "email": true,
-            "frequency": "monthday",
-            "frequency_config": 14,
-            "reccurrences": 3,
-            "hour": 10
+            "action": "Reminder", //could be "Reminder" or "AutoRefill" 
+            "language": "en", //could be "en" or "fr"
+            "method": "Unknown", //could be null, "Unknown", "Pickup" or "Delivery" This value is ignored if the "action" is "Reminder"
+            "timezone": 4, //could be between -12 till 14
+            "push": true, //could be true or false for push notification
+            "email": true, //could be true or false for email notification
+            "frequency": "MonthDay", //could be "WeekDay" or "MonthDay" or "DaysInterval".
+            "frequency_config": 14, //If the frequency is "WeekDay" the "frequency_config" should be between 1 and 7. If the frequency is "MonthDay" the "frequency_config" should be between 1 and 28. If the frequency is "DaysInterval" the "frequency_config" should be either 30, 60, 90 (Values could change)
+            "reccurrences": 3, could be any positive integer value. A maximum value should be defined
+            "hour": 10 //could be between 0 and 23. This value is ignored if the "method is "Delivery"
+            "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
         }
 
 + Response 201 (application/json)
@@ -1975,29 +1974,35 @@ Add a new prescription schedule.
         {
             "response": {
                 "schedule_key": "9E0784CC-4D0B-49C2-B0CD-F40B60F34E63"
-                "action": "Reminder",
-                "method": "unknown",
-                "frequency": "monthday",
-                "frequency_config": 14,
-                "hour":"10:00"
-                "email": true,
-                "push": false,
-                "timezone": 4,
-                "recurrences": 3
+                "action": "Reminder", //could be "Reminder" or "AutoRefill" 
+                "language": "en", //could be "en" or "fr"
+                "method": "Unknown", //could be null, "Unknown", "Pickup" or "Delivery" This value is ignored if the "action" is "Reminder"
+                "frequency": "MonthDay", //could be "WeekDay" or "MonthDay" or "DaysInterval".
+                "frequency_config": 14, //If the frequency is "WeekDay" the "frequency_config" should be between 1 and 7. If the frequency is "MonthDay" the "frequency_config" should be between 1 and 28. If the frequency is "DaysInterval" the "frequency_config" should be either 30, 60, 90 (Values could change)
+                "hour": 10 //could be between 0 and 23. This value is ignored if the "method is "Delivery"
+                "email": true, //could be true or false for email notification
+                "push": true, //could be true or false for push notification
+                "timezone": 4, //could be between -12 till 14
+                "reccurrences": 3, could be any positive integer value. A maximum value should be defined
+                "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
+                "status": "Active",
                 "items":[
                 {
                    "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
                     "date":"2016-09-22T16:23:00+0004"
+                    "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
                     "status": "pending"
                 },
                 {
                     "scheduleItem_key": "5E50349E-B0CC-4A83-BCF5-70DE4DE15CD7"
                     "date":"2016-09-22T16:23:00+0004"
+                    "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
                     "status": "pending"
                 },
                 {
                     "scheduleItem_key": "1618188D-9266-42C1-9C0A-DB59DB3860DC"
                     "date":"2016-09-22T16:23:00+0004"
+                    "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
                     "status": "pending"
                 }]
             },
@@ -2006,8 +2011,7 @@ Add a new prescription schedule.
 
 ### /patients/{patient_key}/pharmacies/{pharmacy_key}/schedule/{schedule_key} [PATCH]
 
-Update an existing schedule action
-
+Update an existing schedule action (Not needed for Version 3.0)
 + Request
     + Headers
     
@@ -2036,7 +2040,7 @@ Update an existing schedule action
 
 ### /patients/{patient_key}/pharmacies/{pharmacy_key}/schedule/{schedule_key} [DELETE]
 
-Delete a prescription schedule
+Delete a prescription schedule (Used for skipping a schedule
 
 + Request
     + Headers
