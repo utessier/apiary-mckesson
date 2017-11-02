@@ -1641,33 +1641,38 @@ Get patient's prescriptions
                 "state": "0",
                 "date_updated_utc": 1495218307,
                 "schedule": {
-                    "schedule_key": "06c39f1e-0b42-4061-a275-823ded9c22df",
-                    "action": "Reminder",
-                    "timezone": 4,
-                    "push": false,
-                    "email": true,
-                    "frequency": "weekday",
-                    "frequency_config": 5,
-                    "reccurrences": 3,
-                    "hour": 9,
-                    "status": "Active",
-                    "items": [
-                    {
-                    "scheduleItem_key": "32e6b53f-6ddf-49e9-9ac9-d10673bb1260",
-                    "date": "2017-07-08T08:00:00-04:00",
-                    "status": "Pending"
-                  },
-                  {
-                    "scheduleItem_key": "32e6b53f-6ddf-49e9-9ac9-d10673bb1260",
-                    "date": "2017-08-08T08:00:00-04:00",
-                    "status": "Pending"
-                  },
-                  {
-                    "scheduleItem_key": "32e6b53f-6ddf-49e9-9ac9-d10673bb1260",
-                    "date": "2017-09-08T08:00:00-04:00",
-                    "status": "Pending"
-                  }
-                ]
+                "schedule_key": "9E0784CC-4D0B-49C2-B0CD-F40B60F34E63"
+                "action": "Reminder", //could be "Reminder" or "AutoRefill" 
+                "language": "en", //could be "en" or "fr"
+                "method": "Unknown", //could be null, "Unknown", "Pickup" or "Delivery" This value is ignored if the "action" is "Reminder"
+                "frequency": "MonthDay", //could be "WeekDay" or "MonthDay" or "DaysInterval".
+                "frequency_config": 14, //If the frequency is "WeekDay" the "frequency_config" should be between 1 and 7. If the frequency is "MonthDay" the "frequency_config" should be between 1 and 28. If the frequency is "DaysInterval" the "frequency_config" should be either 30, 60, 90 (Values could change)
+                "hour": 10 //could be between 0 and 23. This value is ignored if the "method is "Delivery"
+                "email": true, //could be true or false for email notification
+                "push": true, //could be true or false for push notification
+                "timezone": 4, //could be between -12 till 14
+                "reccurrences": 3, could be any positive integer value. A maximum value should be defined
+                "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
+                "status": "Active",
+                "items":[
+                {
+                   "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                },
+                {
+                    "scheduleItem_key": "5E50349E-B0CC-4A83-BCF5-70DE4DE15CD7"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                },
+                {
+                    "scheduleItem_key": "1618188D-9266-42C1-9C0A-DB59DB3860DC"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                }]
               }
                 "leaflet": null
             },
@@ -1686,44 +1691,38 @@ Get patient's prescriptions
               "state": "0",
               "date_updated_utc": 1495218307,
               "schedule": {
-                "schedule_key": "aa77a31f-e96d-4963-8acc-2501151af6eb",
-                "action": "Reminder",
-                "language": "en",
-                "timezone": 4,
-                "push": true,
-                "email": false,
-                "frequency": "monthday",
-                "frequency_config": 14,
-                "reccurrences": 5,
-                "hour": 9,
+                "schedule_key": "9E0784CC-4D0B-49C2-B0CD-F40B60F34E63"
+                "action": "Reminder", //could be "Reminder" or "AutoRefill" 
+                "language": "en", //could be "en" or "fr"
+                "method": "Unknown", //could be null, "Unknown", "Pickup" or "Delivery" This value is ignored if the "action" is "Reminder"
+                "frequency": "MonthDay", //could be "WeekDay" or "MonthDay" or "DaysInterval".
+                "frequency_config": 14, //If the frequency is "WeekDay" the "frequency_config" should be between 1 and 7. If the frequency is "MonthDay" the "frequency_config" should be between 1 and 28. If the frequency is "DaysInterval" the "frequency_config" should be either 30, 60, 90 (Values could change)
+                "hour": 10 //could be between 0 and 23. This value is ignored if the "method is "Delivery"
+                "email": true, //could be true or false for email notification
+                "push": true, //could be true or false for push notification
+                "timezone": 4, //could be between -12 till 14
+                "reccurrences": 3, could be any positive integer value. A maximum value should be defined
+                "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
                 "status": "Active",
-                "items": [
-                  {
-                    "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
-                    "date": "2017-05-27T17:00:00+04:00",
-                    "status": "Pending"
-                  },
-                  {
-                    "scheduleItem_key": "cfdf33a6-5b03-441e-ad93-f6ee66636419",
-                    "date": "2017-06-03T17:00:00+04:00",
-                    "status": "Pending"
-                  },
-                  {
-                    "scheduleItem_key": "10dc1a38-1918-4636-8c3a-b84edf9d8530",
-                    "date": "2017-06-10T17:00:00+04:00",
-                    "status": "Pending"
-                  },
-                  {
-                    "scheduleItem_key": "8b050f25-70ef-4302-83d5-eaa5180f937f",
-                    "date": "2017-06-17T17:00:00+04:00",
-                    "status": "Pending"
-                  },
-                  {
-                    "scheduleItem_key": "ea95fa7c-b4ad-4982-bb92-56ac5251d2e2",
-                    "date": "2017-06-24T17:00:00+04:00",
-                    "status": "Pending"
-                  }
-                    ]
+                "items":[
+                {
+                   "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                },
+                {
+                    "scheduleItem_key": "5E50349E-B0CC-4A83-BCF5-70DE4DE15CD7"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                },
+                {
+                    "scheduleItem_key": "1618188D-9266-42C1-9C0A-DB59DB3860DC"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
+                    "status": "pending"
+                }]
             },
             "leaflet": {
                 "article_key": "f3ea8b0a-67f4-4c05-afe4-d4a14e5d3c89",
@@ -1990,20 +1989,20 @@ Add a new prescription schedule.
                 "items":[
                 {
                    "scheduleItem_key": "a217b9ec-59bf-49a7-be70-e677188b6d23",
-                    "date":"2016-09-22T16:23:00+0004"
-                    "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
                     "status": "pending"
                 },
                 {
                     "scheduleItem_key": "5E50349E-B0CC-4A83-BCF5-70DE4DE15CD7"
-                    "date":"2016-09-22T16:23:00+0004"
-                    "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
                     "status": "pending"
                 },
                 {
                     "scheduleItem_key": "1618188D-9266-42C1-9C0A-DB59DB3860DC"
-                    "date":"2016-09-22T16:23:00+0004"
-                    "delivery_interval": "Morning", //could be "Morning", "Afternoon" and "Evening". This value is ignored if the "method" is "Pickup"
+                    "start_date":"2016-09-22T16:23:00+0004"
+                    "end_date":"2016-09-22T16:23:00+0004"
                     "status": "pending"
                 }]
             },
