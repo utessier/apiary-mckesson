@@ -26,6 +26,7 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>NEW: POST patients/{patient_key}/pharmacies/{pharmacy_key}/medsync, send request of MedSync to pharmacy</li>
     <li>Modified: GET patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions, now returns leaftlets when possible</li>
     <li>Modified: Add a new prescription schedule</li>
+    <li>NEW: POST patients/link, allows the Mckesson Middleware to request a link 
 </ul>
 
 
@@ -218,9 +219,9 @@ Get terms of loyalty program
             "meta": null
         }
         
-## Send a request of MedSync to the pharmacy. [/patient/{patient_key}/pharmacies/{pharmacy_key}/medsync]
+## Send a request of MedSync to the pharmacy. [/patients/{patient_key}/pharmacies/{pharmacy_key}/medsync]
 
-### /patient/{patient_key}/pharmacies/{pharmacy_key}/medsync [POST]
+### /patients/{patient_key}/pharmacies/{pharmacy_key}/medsync [POST]
 
 + Parameters
     + patient_key (guid, required) - Patient Key
@@ -2236,6 +2237,40 @@ After authentication, allows the activation's patient in pharmacy
         }
 
 + Response 200 (application/json)
+
+## Link Patient  [/patients/link]
+
+### /patients/link [POST]
+
+Allows Mckesson Middleware to link a patient with a pharmacy on the app.
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Request (application/json)
+
+        {
+            "system_token" : "123-123-123-123-123-123"
+            "account" :
+            {
+                "email" : "email@email.ca",
+                "username" : "PM7000222-000001",
+                "password" : "passwordString",
+                "pharmacy_number" : "numberString",
+                "type_account" : "primary",
+                "first_name" : "first_nameString",
+                "last_name": "last_nameString",
+                "new_enrollment" : "true"
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status" : "Pending"
+        }
 
 #Group Device
 
