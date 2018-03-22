@@ -26,7 +26,7 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>NEW: POST patients/{patient_key}/pharmacies/{pharmacy_key}/medsync, send request of MedSync to pharmacy</li>
     <li>Modified: GET patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions, now returns leaftlets when possible</li>
     <li>Modified: Add a new prescription schedule</li>
-    <li>NEW: POST patients/link, allows the Mckesson Middleware to request a link 
+    <li>NEW: POST patients/link, allows the Mckesson Middleware to request a link</li>
 </ul>
 
 
@@ -350,8 +350,15 @@ Register a new account
             ]
         }
 
-+ Response 201
++ Response 201 (application/json)
 
+        {
+            "response": {
+                "link_account_request_key": "ad19d439-c596-448c-8926-f65977f287cd"
+            },
+            "meta": null
+        }
+        
 ### /account [GET]
 
 Get the account info
@@ -2188,7 +2195,7 @@ Dismisses the message from the home screen
 
 ## Read message [/messages/{message_key}/read]
 
-### /messages/read [PATCH]
+### /messages/{message_key}/read [PATCH]
 
 Mark as read the message from the home screen
 
@@ -2196,8 +2203,64 @@ Mark as read the message from the home screen
     + Headers
     
             Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
 
 + Response 200 (application/json)
+
+#Group Onboarding
+
+## Onboarding infos [/onboarding/{linkRequest_key]
+
+### /onboarding/{linkRequest_key} [GET]
+
+Get the onboarding email, first name and last name to pre populate forms
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
+
++ Response 200 (application/json)
+
+        {
+            "response": 
+            {
+                "email": "email@domain.com",
+                "first_name": "first_nameString",
+                "last_name": "last_nameString"
+            },
+        "meta": null
+        }
+
+## Validate challenge question [/onboarding/{linkRequest_key}/challenge_question]
+
+### /onboarding/{linkRequest_key}/challenge_question [POST]
+
+Validate the challenge question for the pharmacy link request
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+
++ Request (application/json)
+
+        {
+            "answer" : "1990-01-01"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "response": 
+            {
+                "is_correct": true,
+                "retries_left": 1
+            },
+            "meta" : null
+        }
 
 # Group Activation
 
