@@ -27,6 +27,7 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>Modified: GET patients/{patient_key}/pharmacies/{pharmacy_key}/prescriptions, now returns leaftlets when possible</li>
     <li>Modified: Add a new prescription schedule</li>
     <li>NEW: POST patients/link, allows the Mckesson Middleware to request a link</li>
+    <li>Modified: POST /account returns LinkAccountRequestKey, PharmacyKey and PatientKey</li>
 </ul>
 
 
@@ -354,7 +355,9 @@ Register a new account
 
         {
             "response": {
-                "link_account_request_key": "ad19d439-c596-448c-8926-f65977f287cd"
+                "link_account_request_key": "ad19d439-c596-448c-8926-f65977f287cd",
+                "pharmacy_key": "04c354dd-412d-404f-a5dc-73fff3a60ee6",
+                "patient_key": "94ef0869-1456-4733-bfb4-2055ab23ee01"
             },
             "meta": null
         }
@@ -2209,7 +2212,7 @@ Mark as read the message from the home screen
 
 #Group Onboarding
 
-## Onboarding infos [/onboarding/{linkRequest_key]
+## Onboarding infos [/onboarding/{linkRequest_key}]
 
 ### /onboarding/{linkRequest_key} [GET]
 
@@ -2261,7 +2264,16 @@ Validate the challenge question for the pharmacy link request
             },
             "meta" : null
         }
+        
++ Response 404 (application/json)
 
+        {
+            "code": "404.10",
+            "message": "Link request not found or expired.",
+            "severity": 5,
+            "messages": null
+        }
+        
 # Group Activation
 
 ## Activation Patient  [/patients/activate_pharmacy]
