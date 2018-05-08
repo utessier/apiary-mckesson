@@ -28,6 +28,10 @@ Middleware API - Methods for Account, Pharmacies and Prescriptions
     <li>Modified: Add a new prescription schedule</li>
     <li>NEW: POST patients/link, allows the Mckesson Middleware to request a link</li>
     <li>Modified: POST /account returns LinkAccountRequestKey, PharmacyKey and PatientKey</li>
+    <li>Modified Accept Terms from /terms to /account/terms </li>
+    <li>New: PATCH Update Optin Communications /account/optin_communications use it instead of /account/optin</li>
+    <li>New: PATCH Update Optin Loyalty /account/optin_loyalty use it instead of /account/optin</li>
+    <li>Deleted: /account/optin </li>
 </ul>
 
 
@@ -53,17 +57,6 @@ Get terms of use
             },
             "meta": null
         }
-
-### /terms [PATCH]
-
-Accept terms of use
-
-+ Request
-    + Headers
-    
-            Accept-Language: "en"
-
-+ Response 200
 
 ## Privacy policy [/privacy]
 
@@ -760,11 +753,11 @@ Set interests of user
 
 + Response 200 (application/json)
 
-## Optin management email [/account/optin]
+## Optin communications [/account/optin_communications]
 
-### /account/optin [PATCH]
+### /account/optin_communications [PATCH]
 
-Update account with the optin to receive promotions and optin to enroll in the Diem Premium Care program.
+Update account with the optin to receive promotions.
 
 + Request
     + Headers
@@ -776,13 +769,46 @@ Update account with the optin to receive promotions and optin to enroll in the D
 + Request (application/json)
 
         {
-            "optin_promo" : true,
-            "optin_reward_program" : true
+            "optin" : true
         }
 
 
 + Response 200
 
+## Optin loyalty [/account/optin_loyalty]
+
+### /account/optin_loyalty [PATCH]
+
+Update account optin to enroll in the Diem Premium Care program.
+
++ Request
+    + Headers
+    
+            Authorization: "Bearer sdfdf23fs5lghgf76fg"
+            Accept-Language: "en"
+
+
++ Request (application/json)
+
+        {
+            "optin" : true
+        }
+
+
++ Response 200
+
+## Optin loyalty [/account/terms]
+
+### /account/terms [PATCH]
+
+Accept terms of use
+
++ Request
+    + Headers
+    
+            Accept-Language: "en"
+
++ Response 200
 
 # Group Pharmacies
 
